@@ -1,11 +1,43 @@
-# Write a class to hold player information, e.g. what room they are in
-# currently.
-from room import Room
-
 class Player:
-    def __init__(self, player_name, current_room):
-        self.player_name = player_name
-        self.current_room = current_room 
+    def __init__(self, name, location):
+        self.name = name
+        self.location = location
+        self.inventory = []
         
-        def move(self, room):
-            self.room = room[room_name]
+         
+
+    def __str__(self):
+        return f" {self.name} {self.location}"
+        
+    
+    def player_move(self, direction):
+        moved = getattr(self.location, f'{direction}_to')
+        
+        if moved == None:
+            print('you can not go that way.\n') 
+                   
+        else:
+            self.location = moved
+            
+    
+        
+    def pickup(self, treasure):
+        print(f'you picked up {treasure}')
+        for treasure in self.location.treasure:
+            if treasure.name == treasure:
+                self.inventory.append(treasure)
+                self.location.remove_treasure(treasure)
+            else:
+                print(f'{self.name} cannot find {treasure} ')
+            
+    def drop(self, treasure):
+        print(f'you have dropped {treasure} ')
+        for treasure in self.location.treasure:
+            if treasure.name == treasure:
+                self.inventory.remove(treasure)
+                self.location.add_treasure(treasure)
+            else:
+                print(f' cannot drop {treasure} ')
+            
+    def look(self):
+        self.location.treasure
